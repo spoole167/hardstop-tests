@@ -4,8 +4,18 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Tests changing a method's return type.
+ * Matches spec scenario D.67: Method return type changed.
+ * Changing the return type changes the method descriptor, leading to NoSuchMethodError at runtime.
+ */
 public class TestMethodChange {
 
+    /**
+     * In V1, MethodChanges.returnInteger() returns Integer.
+     * In V2, it returns Number.
+     * Code compiled against V1 expects a descriptor returning Integer and fails with NoSuchMethodError.
+     */
     @Test
     public void testMethodSignatureChange() {
         MethodChanges m=new MethodChanges();

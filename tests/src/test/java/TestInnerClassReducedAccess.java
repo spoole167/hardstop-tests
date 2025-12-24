@@ -5,9 +5,19 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
+/**
+ * Tests reducing the visibility of an inner class.
+ * Matches spec scenario A.29: Class made non-public.
+ * Results in IllegalAccessError at runtime.
+ */
 public class TestInnerClassReducedAccess {
 
 
+    /**
+     * In V1, InnerClassReducedAccess.Inner is public.
+     * In V2, it is changed to private (or package-private).
+     * Code compiled against V1 will fail with IllegalAccessError when trying to instantiate the now-inaccessible inner class.
+     */
     @Test
     public void testInnerClassReducedAccess() {
 

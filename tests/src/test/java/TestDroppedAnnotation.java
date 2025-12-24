@@ -4,8 +4,18 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Tests the removal of an annotation class.
+ * Matches spec scenario A.26: Class removed.
+ * Results in NoClassDefFoundError if the annotation is accessed at runtime.
+ */
 public class TestDroppedAnnotation {
 
+    /**
+     * In V1, DroppedRuntimeAnnotation exists.
+     * In V2, the class is removed entirely.
+     * Accessing the annotation on a class that was compiled with it results in NoClassDefFoundError.
+     */
     @Test
     public void testDroppedAnnotation() {
 

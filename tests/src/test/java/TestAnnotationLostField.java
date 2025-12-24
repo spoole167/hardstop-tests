@@ -6,8 +6,18 @@ import java.lang.annotation.Annotation;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Tests the removal of a field (element) from an annotation.
+ * Matches spec scenario D.64: Method removed (Annotation elements are technically methods).
+ * Results in NoSuchMethodError at runtime when the removed element is accessed.
+ */
 public class TestAnnotationLostField {
 
+   /**
+    * In V1, RuntimeAnnotation has 'action2'.
+    * In V2, 'action2' is removed.
+    * Accessing ra.action2() on a V1-compiled class against V2 library results in NoSuchMethodError.
+    */
    @Test
     public void test1() {
 
