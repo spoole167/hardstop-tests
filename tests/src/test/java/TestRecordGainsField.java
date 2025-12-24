@@ -24,15 +24,14 @@ public class TestRecordGainsField {
     public void test() {
 
         if(Version.isV1()) {
-                RecordGainsField r=new RecordGainsField("a",1);
-             }
-        else {
+            RecordGainsField r = new RecordGainsField("a", 1);
+        } else {
             try {
-                RecordGainsField r=new RecordGainsField("a",1);
-               fail("should throw error");
+                RecordGainsField r = new RecordGainsField("a", 1);
+                fail("should throw error");
 
-            } catch( NoSuchMethodError nme) {
-               ; // expected
+            } catch(NoSuchMethodError nme) {
+                // expected
             }
         }
 
