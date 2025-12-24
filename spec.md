@@ -62,14 +62,14 @@ The rules are organised along three axes:
 | Change | Phase | Certainty | Shielding | Test | Notes |
 |------|------|----------|-----------|------|------|
 | Method removed | C/R | A | None | `TestMethodRemoved` | `NoSuchMethodError` |
-| Method renamed | C | A | None | `TestMethodChangesExtended` | Symbol loss |
-| Method visibility reduced | C | A | None | `TestMethodChangesExtended` | Access check |
+| Method renamed | C | A | None | `TestMethodSignatures` | Symbol loss |
+| Method visibility reduced | C | A | None | `TestMethodModifiers` | Access check |
 | Method return type changed | C/R | A | None | `TestMethodChange` | Descriptor change |
-| Method parameters changed | C/R | A | None | `TestMethodChangesExtended` | Descriptor change |
-| Instance ↔ static change | C/R | A | None | `TestMethodChangesExtended` | Binding mode change |
-| Method made abstract | C/R | D | Partial | `TestMethodChangesExtended` | Concrete subclasses fail |
+| Method parameters changed | C/R | A | None | `TestMethodSignatures` | Descriptor change |
+| Instance ↔ static change | C/R | A | None | `TestMethodModifiers` | Binding mode change |
+| Method made abstract | C/R | D | Partial | `TestMethodModifiers` | Concrete subclasses fail |
 | Method moved to superclass | C/R | D | Partial | `TestMethodMoves` | Safe only if visible and identical |
-| Checked exceptions widened | C | A | None | `TestMethodChangesExtended` | Compile-time rule |
+| Checked exceptions widened | C | A | None | `TestMethodSignatures` | Compile-time rule |
 
 ---
 
@@ -91,10 +91,10 @@ The rules are organised along three axes:
 | Change | Phase | Certainty | Shielding | Test | Notes |
 |------|------|----------|-----------|------|------|
 | Interface adds abstract method | C/R | A | None | `TestInterfaceEvolution` | All implementors break |
-| Interface adds default method | – | – | Full | | Safe evolution |
+| Interface adds default method | – | – | Full | `TestSafeEvolution` | Safe evolution |
 | Abstract class adds abstract method | C/R | D | Partial | `TestInterfaceEvolution` | Concrete subclasses fail |
 | Abstract class adds interface | C/R | D | Partial | `TestInterfaceEvolution` | Depends on interface methods |
-| Abstract class implements interface methods | – | – | Full | | Obligations absorbed |
+| Abstract class implements interface methods | – | – | Full | `TestSafeEvolution` | Obligations absorbed |
 
 ---
 
@@ -124,18 +124,18 @@ The rules are organised along three axes:
 
 | Change | Phase | Certainty | Shielding | Test | Notes |
 |------|------|----------|-----------|------|------|
-| Superclass removed (`extends A` → `Object`) | C/R | D | None | `TestHierarchyChanges` | Inherited members lost |
-| Superclass replaced (`extends A` → `extends B`) | C/R | A | None | `TestHierarchyChanges` | Type contract changes |
-| Superclass inserted into hierarchy | C/R | D | Partial | `TestHierarchyChanges` | Safe only if transparent |
+| Superclass removed (`extends A` → `Object`) | C/R | D | None | `TestSuperclassChanges` | Inherited members lost |
+| Superclass replaced (`extends A` → `extends B`) | C/R | A | None | `TestSuperclassChanges` | Type contract changes |
+| Superclass inserted into hierarchy | C/R | D | Partial | `TestSuperclassChanges` | Safe only if transparent |
 | Superclass made abstract | C/R | D | Partial | `TestMoreHierarchyChanges` | Concrete subclasses may fail |
 | Superclass made concrete | – | – | Full | | Safe |
 | Superclass visibility reduced | C | A | None | `TestMoreHierarchyChanges` | Access failure |
 | Superclass moved to unexported module | C | A | None | | JPMS boundary |
-| Inherited method removed | C/R | A | None | `TestHierarchyChanges` | Resolution failure |
-| Inherited method signature changed | C/R | A | None | `TestHierarchyChanges` | Descriptor mismatch |
-| Inherited method becomes final | C/R | D | None | `TestHierarchyChanges` | Overriding subclasses fail |
-| Field shadowed by superclass field | R | D | None | `TestHierarchyChanges` | Static binding change |
-| Default method superseded by superclass method | R | D | Partial | | Resolution rules apply |
+| Inherited method removed | C/R | A | None | `TestInheritedMemberChanges` | Resolution failure |
+| Inherited method signature changed | C/R | A | None | `TestInheritedMemberChanges` | Descriptor mismatch |
+| Inherited method becomes final | C/R | D | None | `TestInheritedMemberChanges` | Overriding subclasses fail |
+| Field shadowed by superclass field | R | D | None | `TestInheritedMemberChanges` | Static binding change |
+| Default method superseded by superclass method | R | D | Partial | `TestSafeEvolution` | Resolution rules apply |
 | Core `Object` methods overridden differently | R | D | Partial | | Behavioural impact |
 
 ---
