@@ -10,6 +10,9 @@
         <module>v1</module>
         <module>v2</module>
         <module>tests</module>
+        <module>v1-jpms</module>
+        <module>v2-jpms</module>
+        <module>tests-jpms</module>
     </modules>
 
     <properties>
@@ -30,4 +33,3 @@
 
 
 </project>
-

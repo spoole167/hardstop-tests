@@ -84,4 +84,51 @@ public class TestInterfaceEvolution {
             }
         }
     }
+
+    /**
+     * Matches 3.2.1: Conflicting Default Methods.
+     * V1: I1 has default, I2 empty. ConflictImpl implements both.
+     * V2: I2 adds default with same signature.
+     * ConflictImpl (compiled against V1) now inherits two conflicting defaults.
+     * Results in IncompatibleClassChangeError.
+     */
+    @Test
+    public void testConflictingDefaults() {
+        // We need an instance of ConflictImpl compiled against V1.
+        // But ConflictImpl is in the library.
+        // If we instantiate it here, we are using the version on the classpath.
+        
+        if (Version.isV1()) {
+            ConflictImpl c = new ConflictImpl();
+            c.conflict();
+        } else {
+            // In V2, ConflictImpl.class is loaded from V2 jar.
+            // BUT, ConflictImpl in V2 source overrides the method to resolve conflict.
+            // So 'new ConflictImpl()' works fine.
+            
+            // To test the failure, we need a class that DOES NOT override it.
+            // We can create an anonymous class here in the test (compiled against V1).
+            
+            Object c = new ConflictImpl() {}; 
+            // This anonymous class extends ConflictImpl.
+            // In V1, ConflictImpl implements I1, I2.
+            // In V2, ConflictImpl overrides conflict().
+            // So the anonymous class inherits the resolved method. No error.
+            
+            // We need a class that implements I1 and I2 directly and does NOT override.
+            class MyConflict implements I1, I2 {}
+            
+            // In V1, MyConflict is valid (inherits I1.conflict).
+            // In V2, MyConflict (compiled against V1) inherits I1.conflict AND I2.conflict.
+            // This should fail loading or invocation.
+            
+            try {
+                MyConflict mc = new MyConflict();
+                mc.conflict();
+                fail("IncompatibleClassChangeError expected");
+            } catch (IncompatibleClassChangeError e) {
+                // Expected
+            }
+        }
+    }
 }

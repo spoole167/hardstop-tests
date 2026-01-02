@@ -15,9 +15,12 @@
       <module name="common" target="22" />
       <module name="dependencies-v1" target="17" />
       <module name="dependencies-v2" target="17" />
+      <module name="tests-jpms" target="17" />
+      <module name="v1-jpms" target="17" />
       <module name="v1-user" target="22" />
       <module name="v16" target="22" />
       <module name="v16-2" target="22" />
+      <module name="v2-jpms" target="17" />
     </bytecodeTargetLevel>
   </component>
 </project>

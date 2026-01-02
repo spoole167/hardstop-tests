@@ -27,7 +27,7 @@ The rules are organised along three axes:
 | Class renamed | C | A | None | `TestClassRenamed` | Binary and source incompatible |
 | Package changed | C | A | None | `TestPackageChanged` | Fully qualified name changes |
 | Class made non-public | C | A | None | `TestInnerClassReducedAccess` | Accessibility violation |
-| Package no longer exported (JPMS) | C | A | None | | Module boundary enforced |
+| Package no longer exported (JPMS) | C | A | None | `tests-jpms:TestPackageNotExported` | Module boundary enforced |
 | Module renamed | C | A | None | | Requires recompilation |
 
 ---
@@ -83,6 +83,7 @@ The rules are organised along three axes:
 | Field type changed | C/R | A | None | `TestFieldChanges` | Descriptor mismatch |
 | Instance ↔ static change | C/R | A | None | `TestFieldChanges` | Binding change |
 | `static final` constant value changed | R | D | None | `TestStaticFieldValue` | Inlining risk |
+| Field moved to superclass | – | – | Full | `TestFieldChanges` | Safe evolution (JVM resolves recursively) |
 
 ---
 
@@ -95,6 +96,7 @@ The rules are organised along three axes:
 | Abstract class adds abstract method | C/R | D | Partial | `TestInterfaceEvolution` | Concrete subclasses fail |
 | Abstract class adds interface | C/R | D | Partial | `TestInterfaceEvolution` | Depends on interface methods |
 | Abstract class implements interface methods | – | – | Full | `TestSafeEvolution` | Obligations absorbed |
+| Conflicting default methods | R | A | None | `TestInterfaceEvolution` | IncompatibleClassChangeError |
 
 ---
 
@@ -105,6 +107,8 @@ The rules are organised along three axes:
 | Sealed hierarchy tightened | C/R | D | None | `TestSealedLosesPermit` | Usage dependent |
 | Record component removed | C/R | D | None | `TestRecordEvolution` | Pattern usage dependent |
 | Switch exhaustiveness invalidated | C | D | None | `TestSwitchEvolution` | Pattern matching only |
+| JavaBean to Record migration | C/R | A | None | `TestRecordMigration` | NoSuchMethodError (accessor), IllegalAccessError (field) |
+| Record serialization incompatibility | R | A | None | | InvalidClassException (stream mismatch) |
 
 ---
 
@@ -115,7 +119,7 @@ The rules are organised along three axes:
 | Abstract method invoked via interface | R | A | None | `TestRuntimeFailures` | `AbstractMethodError` |
 | Method resolution ambiguity | R | D | Partial | | Call-site dependent |
 | Reflection access removed | R | D | None | `TestRuntimeFailures` | Framework sensitive |
-| JPMS `opens` removed | R | D | None | | Reflection only |
+| JPMS `opens` removed | R | D | None | `tests-jpms:TestOpensRemoved` | Reflection only |
 | Serialization incompatibility | R | D | None | `TestRuntimeFailures` | Object-stream dependent |
 
 ---
@@ -137,6 +141,24 @@ The rules are organised along three axes:
 | Field shadowed by superclass field | R | D | None | `TestInheritedMemberChanges` | Static binding change |
 | Default method superseded by superclass method | R | D | Partial | `TestSafeEvolution` | Resolution rules apply |
 | Core `Object` methods overridden differently | R | D | Partial | | Behavioural impact |
+
+---
+
+## J. Generics (New Section)
+
+| Change | Phase | Certainty | Shielding | Test | Notes |
+|------|------|----------|-----------|------|------|
+| Erasure drift (List -> Collection) | C/R | A | None | `TestGenerics` | Descriptor mismatch |
+| Heap pollution (List<String> -> List<Integer>) | R | A | None | `TestGenerics` | ClassCastException |
+
+---
+
+## K. Annotations (New Section)
+
+| Change | Phase | Certainty | Shielding | Test | Notes |
+|------|------|----------|-----------|------|------|
+| Adding element without default | R | A | None | `TestAnnotationEvolution` | IncompleteAnnotationException |
+| Retention policy changed (RUNTIME -> CLASS) | R | A | None | `TestAnnotationEvolution` | Annotation invisible |
 
 ---
 

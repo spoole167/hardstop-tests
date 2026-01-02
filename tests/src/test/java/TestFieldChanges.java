@@ -86,4 +86,15 @@ public class TestFieldChanges {
             }
         }
     }
+
+    /**
+     * Matches 2.2.1: Field moved to superclass.
+     * This is actually BINARY COMPATIBLE because JVM field resolution searches superclasses.
+     */
+    @Test
+    public void testFieldMovedToSuperclass() {
+        FieldMovedChild c = new FieldMovedChild();
+        // This should succeed in both V1 and V2
+        assertEquals("moved", c.movedField);
+    }
 }

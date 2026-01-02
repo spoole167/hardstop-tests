@@ -9,8 +9,12 @@
     <file url="file://$PROJECT_DIR$/dependencies-v2/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/tests-jpms/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/tests-jpms/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/tests/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/tests/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/v1-jpms/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/v1-jpms/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/v1-user/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/v1-user/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/v1/src/main/java" charset="UTF-8" />
@@ -19,6 +23,8 @@
     <file url="file://$PROJECT_DIR$/v16-2/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/v16/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/v16/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/v2-jpms/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/v2-jpms/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/v2/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/v2/src/main/resources" charset="UTF-8" />
   </component>
