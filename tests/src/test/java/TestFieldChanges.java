@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * Tests various field-level changes.
- * Matches spec scenarios E.81, E.82, E.83, E.84.
+ * Matches spec scenarios E.81, E.82, E.83, E.84, and Field Moved to Superclass.
  */
 public class TestFieldChanges {
 
@@ -88,8 +88,9 @@ public class TestFieldChanges {
     }
 
     /**
-     * Matches 2.2.1: Field moved to superclass.
-     * This is actually BINARY COMPATIBLE because JVM field resolution searches superclasses.
+     * Matches Field moved to superclass (Section E).
+     * This is BINARY COMPATIBLE because JVM field resolution searches superclasses recursively.
+     * See JVMS 5.4.3.2.
      */
     @Test
     public void testFieldMovedToSuperclass() {
